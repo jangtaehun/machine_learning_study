@@ -1,24 +1,12 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 # #Data Preprocessing Tools
 
 # Importing the libraries
-
-# In[1]:
-
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
 # Importing the dataset
-
-# In[ ]:
-
-
-dataset = pd.read_csv('/content/drive/MyDrive/유데미/study/section3_데이터 전처리/Data.csv')
+dataset = pd.read_csv('./Data.csv')
 #머신 러닝 모델 훈련 데이터 세트에는 특성 / 종속 변수 백터가 있다.
 #특성 열을 사용해 종속 변수 예측 -> 종속 변수는 마지막 열
 
@@ -26,9 +14,6 @@ X = dataset.iloc[:, :-1].values #values = 데이터를 넘파이 배열로 추�
 y = dataset.iloc[:, -1].values
 print(X)
 print(y)
-print(X.shape)
-print(y.shape)
-
 
 # 
 # 1.   Taking care of missing data
@@ -36,8 +21,6 @@ print(y.shape)
 # 3. Encoding the Dependent Variable
 
 # In[ ]:
-
-
 #결측치 -> 평균으로 대체
 from sklearn.impute import SimpleImputer
 imputer = SimpleImputer(missing_values=np.nan, strategy='mean') #missing_values=np.nan 모든 결측값을 대체한다. / strategy='mean' 평균으로 대체한다.
@@ -60,26 +43,15 @@ print(X)
 from sklearn.preprocessing import LabelEncoder
 le = LabelEncoder()
 y = le.fit_transform(y)
-y
-
-
-# Splitting the dataset into the Training set and Test set
-
 # In[ ]:
 
-
+# Splitting the dataset into the Training set and Test set
 #데이터 세트를 훈련 세트와 테스트 세트로 나눈 후 특성 스케일링을 적용해야 한다.
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state=1) #권장 훈련 세트 80%, 테스트 세트 20%
-
-
-# Feature Scaling -> 하는 이유 (복)
-# => 특성 스케일이 다르면 머신러닝 알고리즘이 잘 작동하지 않는다.
-
 # In[ ]:
-
-
+# Feature Scaling -> 하는 이유 => 특성 스케일이 다르면 머신러닝 알고리즘이 잘 작동하지 않는다.
 #표준화 = -3 ~ 3 사이의 값 -> 항상 좋은 값이 나온다.
 #정규화 = 대부분의 특성이 정규 분포를 따른다는 특수한 상황에서만 좋다.
 
